@@ -15,7 +15,11 @@ router.get("/assets",async function(req,res){
           marketCapUsd: x.marketCapUsd,
           priceUsd: x.priceUsd,
         }));
-    
+
+        let DBdata = await Coin.find()
+        if(DBdata.length!=0){
+            return res.status().send({status:false, message:"Coins are already created in db"})
+        }
         //saving data in databse
         await Coin.create(coins);
     
